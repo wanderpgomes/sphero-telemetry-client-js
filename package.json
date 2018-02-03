@@ -1,0 +1,26 @@
+{
+  "name": "sphero-telemetry-client-js",
+  "version": "1.0.0",
+  "description": "Collect telemetric data from a sphero robot and stream it to a remote web socket server",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wanderpgomes/sphero-telemetry-client-js.git"
+  },
+  "author": "Wander Gomes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wanderpgomes/sphero-telemetry-client-js/issues"
+  },
+  "homepage": "https://github.com/wanderpgomes/sphero-telemetry-client-js#readme",
+  "dependencies": {
+    "noble": "^1.9.0",
+    "noble-highsierra": "^1.8.1",
+    "nodejs-websocket": "^1.7.1",
+    "sphero": "^0.9.2"
+  }
+}
