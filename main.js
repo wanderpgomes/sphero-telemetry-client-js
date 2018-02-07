@@ -6,12 +6,12 @@ var ws = require('nodejs-websocket');
 
 var device = sphero('6909d327ac594614900ddb0daeb2ad40');
 
-var wsConnection = ws.connect('ws://localhost:8080/sphero/bb8');
+var wsConnection = ws.connect('ws://localhost:8080/sphero-data/bb8');
 
 
 
 wsConnection.on('connect', function() {
-    console.log('Sphero connected to WebSocket at ws://localhost:8080/sphero/bb8');
+    console.log('Sphero connected to WebSocket at ws://localhost:8080/sphero-data/bb8');
 });
 
 device.connect(function() {
@@ -37,29 +37,25 @@ device.connect(function() {
 
     device.setDataStreaming(dataOptions);
 
-    var count = 0;
-
     device.on("dataStreaming", function(data) {
 
         wsConnection.sendText(JSON.stringify(data));
 
         wsConnection.on("text", function (str) {
-            count = count + 1;
-            console.log("Message received from ws: "+ str)
-            if (count > 100) {
-                device.color("red");
-            }
+            var notification = JSON.parse(str);
+            device.color(notification.color);
         });
     });
 
     device.setMotionTimeout(1000, function(err, data) {
-        console.log(err || 'Motion timeout set to 1000');
+        console.log(err || 'Motion timeout set to 1000 ms.');
     });
 
-    device.roll(40, 0);
+    device.color("green");
+    device.roll(80, 0);
 
 });
 
 wsConnection.on('close', function() {
-    console.log('Sphero disconnected from WebSocket at ws://localhost:8080/sphero/bb8');
+    console.log('Sphero disconnected from WebSocket at ws://localhost:8080/sphero-data/bb8');
 });
